@@ -5,9 +5,11 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import { Camera, Plus, Users, History, Receipt, Zap } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleVoiceCommand = (command: string) => {
     toast({
@@ -17,10 +19,25 @@ const Index = () => {
   };
 
   const handleQuickAction = (action: string) => {
-    toast({
-      title: "Feature Coming Soon",
-      description: `${action} will be available soon!`,
-    });
+    switch (action) {
+      case "Bill Scanning":
+        navigate("/scan");
+        break;
+      case "Manual Entry":
+        navigate("/add-expense");
+        break;
+      case "Group Management":
+        navigate("/groups");
+        break;
+      case "History & Analytics":
+        navigate("/history");
+        break;
+      default:
+        toast({
+          title: "Feature Coming Soon",
+          description: `${action} will be available soon!`,
+        });
+    }
   };
 
   return (
